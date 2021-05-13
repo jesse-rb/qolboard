@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--My css-->
+    <link rel="stylesheet" href="./css/style.css"></link>
+    <!--Material design icons-->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons"
+        rel="stylesheet">
+    <title>qolboard</title>
+</head>
+<body>
+    <div class="navbar">
+        <div><a href="/">qolboard</a></div>
+        <div><a href="/about.html">About qolboard</a></div>
+    </div>
+
+    <button id="toggle-notifications" class="button material-icons">notifications</button>
+
+    <div class="body">
+        <h1>qolboard</h1>
+        <div class="inline-block">
+            <h2>Privacy note</h2>
+            <p>Please note that qolboard uses:</p>
+            <ul>
+                <li>session storage to carry your drawings over between page refreshes</li>
+                <li>server memory to sync your drawing with anyone who joins the 'room' which you are currently in.</li>
+            </ul>
+            <p>Therefore <em>please do not use qolboard for any personal or private details</em>.</p>
+        </div>
+
+        <div id="members" class="sidebar">
+            <h2>Members</h2>
+            <div class="control">
+                <label for="display-name">set display name</label>
+                <input type="text" id="display-name">
+                <button id="set-display-name" class="button material-icons">done</button>
+            </div>
+        </div>
+
+        <div id="notifications" class="hidden">
+            <h2>Notifications</h2>
+            <h3>incoming requests</h3>
+            <div id="join-requests-incoming"></div>
+            <h3>outgoing requests</h3>
+            <div id="join-requests-outgoing"></div>
+        </div>
+
+        <div class="block">
+            <!--Board controls-->
+            <h2>Board controls</h2>
+            <div id="controls">
+                <fieldset class="controls-group">
+                    <legend>room</legend>
+                    <!--room code-->
+                    <div class="control">
+                        <label for="room_code">your room code</label>
+                        <span id="room_code"></span>
+                    </div>
+                    <div class="control">
+                        <label for="room_code_join">join a differnt room code</label>
+                        <input type="text" id="room_code_join">
+                        <button id="join_room" class="button material-icons">search</button>
+                    </div>
+                </fieldset>
+                <fieldset class="controls-group">
+                    <legend>Canvas</legend>
+                    <!--Mini map-->
+                    <div class="control">
+                        <label for="mini_map">min map</label>
+                        <canvas id="mini_map" class="canvas" width="100px" height="100px"></canvas>
+                    </div>
+                    <!--Canvas width-->
+                    <div class="control">
+                        <label for="canvas_width">canvas width</label>
+                        <input id="canvas_width" type="range" min="1" max="9000" value="500"></input>
+                    </div>
+                    <!--Canvas height-->
+                    <div class="control">
+                        <label for="canvas_height">canvas height</label>
+                        <input id="canvas_height" type="range" min="1" max="9000" value="350"></input>
+                    </div>
+                    <!--Canvas background color-->
+                    <div class="control">
+                        <label for="background_color">background color</label>
+                        <input id="background_color" type="color" value="#101010"></input>
+                    </div>
+                    <div class="control">
+                        <label for="delete_all">delete all pieces</label>
+                        <button id="delete_all" onclick="deleteAll()" class="button material-icons">clear</button>
+                    </div>
+                </fieldset>
+                <fieldset class="controls-group">
+                    <legend>stroke</legend>
+                    <!--Stroke color-->
+                    <div class="control">
+                        <label for="stroke_color">stroke color</label>
+                        <input id="stroke_color" type="color" value="#ee5555"></input>
+                    </div>
+                    <!--Stroke size-->
+                    <div class="control">
+                        <label for="stroke_size">stroke size</label>
+                        <input id="stroke_size" type="range" min="1" max="100" value="20"></input>
+                    </div>
+                </fieldset>
+                <fieldset class="controls-group">
+                    <legend>tools</legend>
+                    <!--Draw tool-->
+                    <div class="control">
+                        <label for="draw-tool">draw tool</label>
+                        <button id="draw-tool" class="button material-icons">gesture</button>
+                    </div>
+                    <!--Select tool-->
+                    <div class="control">
+                        <label for="select-tool">select tool</label>
+                        <button id="select-tool" class="button material-icons">mouse</button>
+                    </div>
+                    <!--Delete tool-->
+                    <div class="control">
+                        <label for="delete-tool">delete tool</label>
+                        <button id="delete-tool" class="button material-icons">delete</button>
+                    </div>
+                </fieldset>
+                <fieldset class="controls-group">
+                    <legend>experimental</legend>
+                    <!--Stroke shadow color-->
+                    <div class="control">
+                        <label for="shadow_color">shadow color</label>
+                        <input id="shadow_color" type="color" value="#9153EE"></input>
+                    </div>
+                    <!--Stroke shadow blur-->
+                    <div class="control">
+                        <label for="shadow_blur">shadow blur</label>
+                        <input id="shadow_blur" type="range" min="0" max="100" value="0"></input>
+                    </div>
+                    <!--Clean up experimental pixels-->
+                    <div class="control">
+                        <label for="refresh_chaos">Clean up buggy pixels</label>
+                        <button id="refresh_chaos" onclick="refreshCanvas()" class="button material-icons">restore_page</button>
+                    </div>
+                </fieldset>
+                <fieldset class="controls-group">
+                    <legend>not implemented</legend>
+                    <!--Not implemented features-->
+                    <div class="control">
+                        <label for="canvas_zoom"><strike>canvas zoom</strike></label>
+                        <input id="canvas_zoom" type="range" min="0.1" max="2" step="0.1" value="1"></input>
+                    </div>
+                </fieldset>
+            </div>
+            <div id="canvas_container">
+                <div id="canvas_scroll">
+                    <canvas id="canvas" class="canvas" width="600px" height="300px"></canvas>
+                </div>
+                <h2>Selection controls</h2>
+            </div>
+            
+        </div>
+    </div>
+
+    <!--JavaScript scripts-->
+    <script type="text/javascript" src="./js/async.js"></script>
+    <script type="text/javascript" src="./js/member.js"></script>
+    <script type="text/javascript" src="./js/piece.js"></script>
+    <script type="text/javascript" src="./js/canvas.js"></script>
+    <script type="text/javascript">
+        
+        let canvas = document.getElementById('canvas');
+        let miniMap = document.getElementById('mini_map');
+        let canvasContainer = document.getElementById('canvas_container');
+        let canvasScroll = document.getElementById('canvas_scroll');
+
+        let canvasWidthSlider = document.getElementById('canvas_width');
+        let canvasHeightSlider = document.getElementById('canvas_height');
+        let canvasZoomSlider = document.getElementById('canvas_zoom');
+        let canvasBackgroundColorPicker = document.getElementById('background_color'); // TODO: NI
+
+        let pieceColorPicker = document.getElementById('stroke_color');
+        let pieceSizeSlider = document.getElementById('stroke_size');
+        let pieceShadowColorPicker = document.getElementById('shadow_color');
+        let pieceShadowBlurSlider = document.getElementById('shadow_blur');
+
+        let joinButton = document.getElementById('join_room');
+        let codeDisplay = document.getElementById('room_code');
+        let codeInput = document.getElementById('room_code_join');
+
+        let displayName = document.getElementById('display-name');
+        let setDisplayName = document.getElementById('set-display-name');
+        let membersContainer = document.getElementById('members');
+
+        let toggleNotifications = document.getElementById('toggle-notifications');
+        let notificationsBar = document.getElementById('notifications');
+        let joinNotifIncoming = document.getElementById('join-requests-incoming');
+        let joinNotifOutgoing = document.getElementById('join-requests-outgoing');
+
+        let drawTool = document.getElementById('draw-tool');
+        let selectTool = document.getElementById('select-tool');
+        let deleteTool = document.getElementById('delete-tool');
+        
+        // Create canvas
+        let c = new Canvas(toggleNotifications, notificationsBar, joinNotifIncoming, joinNotifOutgoing, membersContainer, displayName, setDisplayName, codeInput, joinButton, codeDisplay, canvasContainer, canvasScroll, canvas, miniMap, '2d', 
+        canvasWidthSlider, canvasHeightSlider, canvasZoomSlider, canvasBackgroundColorPicker,
+        pieceColorPicker, pieceSizeSlider, pieceShadowColorPicker, pieceShadowBlurSlider, drawTool, selectTool, deleteTool);
+
+        function refreshCanvas() {
+            c.Refresh();
+        }
+
+        function deleteAll() {
+            c.RemoveAllPieces();
+        }
+
+    </script>
+</body>
+</html>
