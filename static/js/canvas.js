@@ -285,15 +285,6 @@ function Canvas(toggleNotifications, notificationsBar, joinNotifIncoming, joinNo
 
     let toggleNotifBar = function() {
         _toggleNotifications.classList.remove('animation-new-notif');
-        if (_notificationsBar.classList.contains('hidden')) {
-            _notificationsBar.classList.remove('hidden');
-            _notificationsBar.classList.add('sidebar');
-            _toggleNotifications.classList.add('active-tool');
-        } else {
-            _notificationsBar.classList.add('hidden');
-            _notificationsBar.classList.remove('sidebar');
-            _toggleNotifications.classList.remove('active-tool');
-        }
     }
 
     //
@@ -312,9 +303,7 @@ function Canvas(toggleNotifications, notificationsBar, joinNotifIncoming, joinNo
     _toggleNotifications.addEventListener('click', toggleNotifBar, false);
 
     _joinButton.addEventListener('click', function() {
-        if (_notificationsBar.classList.contains('hidden')) {
-            _toggleNotifications.classList.add('animation-new-notif');
-        }
+        _toggleNotifications.classList.add('animation-new-notif');
         let code = _codeInput.value;
         let state = _me.SaveStateJSON();
         let message = {desc: 'request-join-room', code: _codeInput.value, canvas: state, member: _member.GetName()}
@@ -338,6 +327,7 @@ function Canvas(toggleNotifications, notificationsBar, joinNotifIncoming, joinNo
         cancel.className = 'button material-icons'
         cancel.textContent = 'cancel'
         cancel.addEventListener('click', function() {
+            _toggleNotifications.classList.remove('animation-new-notif');
             let m = {desc: 'cancel-join-room', code: room.textContent}
             _socket.send(JSON.stringify(m));
             _joinNotifOutgoing.removeChild(container);
@@ -737,6 +727,7 @@ function Canvas(toggleNotifications, notificationsBar, joinNotifIncoming, joinNo
                 break;
             }
             case 'accepted-join': {
+                _toggleNotifications.classList.remove('animation-new-notif');
                 restoreFromServer(message);
                 for (node of _joinNotifOutgoing.children) {
                     if (node.childNodes[1].textContent == _code) {
@@ -747,18 +738,18 @@ function Canvas(toggleNotifications, notificationsBar, joinNotifIncoming, joinNo
                 break;
             }
             case 'cancel-join-room': {
+                _toggleNotifications.classList.remove('animation-new-notif');
                 _joinNotifIncoming.removeChild(_joinNotifIncoming.children[message.index]);
                 break;
             }
             case 'someone-joined-room': {
+                _toggleNotifications.classList.remove('animation-new-notif');
                 _joinNotifIncoming.removeChild(_joinNotifIncoming.children[message.index]);
                 _members.push(new Member(_membersContainer, _me, false, message.member));
                 break;
             }
             case 'request-join-room': {
-                if (_notificationsBar.classList.contains('hidden')) {
-                    _toggleNotifications.classList.add('animation-new-notif')
-                }
+                _toggleNotifications.classList.add('animation-new-notif');
                 // Container
                 let container = document.createElement('container');
                 _joinNotifIncoming.appendChild(container);
@@ -776,6 +767,7 @@ function Canvas(toggleNotifications, notificationsBar, joinNotifIncoming, joinNo
                 accept.className = 'button material-icons'
                 accept.textContent = 'person_add'
                 accept.addEventListener('click', function() {
+                    _toggleNotifications.classList.remove('animation-new-notif');
                     let m = {desc: 'accepted-join', code: _code, index: message.index}
                     _socket.send(JSON.stringify(m));
                 }, false);
@@ -786,7 +778,8 @@ function Canvas(toggleNotifications, notificationsBar, joinNotifIncoming, joinNo
                 decline.className = 'button material-icons'
                 decline.textContent = 'person_remove'
                 decline.addEventListener('click', function() {
-                    let message = {desc: 'declined-join', code: _code}
+                    _toggleNotifications.classList.remove('animation-new-notif');
+                    let message = {desc: 'declined-join', code: _code};
                     _socket.send(JSON.stringify(message));
                     _joinNotifIncoming.removeChild(container);
                 }, false);

@@ -8,7 +8,7 @@ body {
     --heading-color: #adcbf1;
     --border-color: #77768f;
     --button-background-color: #3c3c52;
-    --member-container-width: 200px;
+    --member-container-width: 250px;
     background-color: var(--background-color);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: var(--color);
@@ -32,16 +32,16 @@ em {
 .canvas {
     background-color: var(--background-color-2);
     width: auto;
-    margin-top: 10px;
+    margin: 10px 10px;
     padding: 5px;
     cursor: crosshair;
 }
 
 #canvas_scroll {
-    /* width: fit-content;
-    height: fit-content; */
-    max-width: 85vw;
-    max-height: 85vh;
+    width: fit-content;
+    height: fit-content;
+    max-width: 80vw;
+    max-height: 80vh;
     overflow: scroll;
 }
 
@@ -121,6 +121,16 @@ input[type=color] {
     border: none;
 }
 
+input[type=text] {
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(--button-background-color);
+    color: var(--color);
+    outline: none;
+    border: none;
+    font-size: small;
+}
+
 ::-webkit-scrollbar-corner {
     background-color: transparent
 }
@@ -173,96 +183,17 @@ a {
     padding: 20px;
 }
 
-@keyframes navbar-hover {
-    50% {
-        transform: scale(1.02);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-.navbar {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    background-color: var(--background-color-2);
-    flex-wrap: wrap;
-    margin-right: var(--member-container-width);
-}
-.navbar > div {
-    flex-grow: 2;
-    border-right: var(--border-color) 1px solid;
-    border-top: var(--border-color) 1px solid;
-    place-items: center;
-    margin: 0;
-}
-.navbar > div:last-child {
-    border-right: none;
-}
-.navbar > div:hover a {
-    animation: navbar-hover 0.5s ease-in-out;
-}
-.navbar > * a {
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    display: block;
-    padding: 20px;
-    font-size: xx-large;
-    text-decoration: none;
-    color: var(--heading-color);
-}
-
 h1, h2, h3, h4, h5, h6 {
     color: var(--heading-color);
 }
 
-@keyframes new-notif {
-    5% {
-        transform: translateX(-2px);
-    }
-    15% {
-        transform: translateX(4px);
-    }
-    25% {
-        transform: translateX(-4px);
-    }
-    35% {
-        transform: translateX(2px);
-    }
-    100% {
-        transform: translateX(0px);
-    }
-}
-.animation-new-notif {
-    animation: new-notif 1s infinite;
+.active-tool {
+    border: var(--color) 2px solid;
 }
 
-#toggle-notifications {
-    float: right;
-    position: sticky;
-    margin: 50px;
-    margin-right: calc(var(--member-container-width) + 80px);
-    right: 50px;
-    top: 50px;
-}
-
-.notif {
-    display: flex;
-    place-content: center;
-    align-items: center;
-    padding: 10px;
-    background-color: var(--background-color);
-    width: 80%;
-    margin-top: 20px;
-    word-break: break-all;
-    flex-wrap: wrap;
-}
-.notif > * {
-    margin: 10px;
-}
-
+/*
+Side bar
+*/
 .sidebar {
     position: fixed;
     top: 0;
@@ -270,11 +201,28 @@ h1, h2, h3, h4, h5, h6 {
     height: 100%;
     width: var(--member-container-width);
     background-color: var(--background-color-2);
-    border-left: var(--border-color) 1px solid;
+    overflow-y: auto;
+}
+.sidebar > div {
     display: flex;
     flex-direction: column;
-    place-items: center;
+    place-content: center;
+    align-items: center;
     padding: 10px;
+    background-color: var(--background-color);
+    margin: 10px 10px 0 10px;
+    word-break: break-all;
+    flex-wrap: wrap;
+}
+
+.navbar > a {
+    font-size: x-large;
+}
+.navbar > a:first-child {
+    color: var(--heading-color);
+}
+.navbar > a:last-child {
+    color: orange;
 }
 
 .member {
@@ -291,6 +239,29 @@ h1, h2, h3, h4, h5, h6 {
     margin-right: 10px;
 }
 
-.active-tool {
-    border: var(--color) 2px solid;
+@keyframes new-notif {
+    2% {
+        transform: translateX(-2px);
+    }
+    4% {
+        transform: translateX(4px);
+    }
+    6% {
+        transform: translateX(-4px);
+    }
+    8% {
+        transform: translateX(2px);
+    }
+    10% {
+        transform: translateX(0px);
+    }
+    100% {
+        transform: translateX(0px);
+    }
+}
+.animation-new-notif {
+    animation: new-notif 4s infinite;
+}
+.notif > * {
+    margin: 10px;
 }
