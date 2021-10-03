@@ -181,6 +181,9 @@ func (roomsManager *RoomsManager) wsResponder(client *Client) {
 			return
 		}
 		fmt.Printf("Recieved message: %+v\nfrom client: %+v\n", message, client)
+		if (message.Desc == "keep-alive") {
+			continue;
+		}
 
 		sendClient := client
 		code, err := uuid.Parse(message.Code)
@@ -355,28 +358,6 @@ func (room *Room) removeClient(client *Client) {
 			response.Members = append(response.Members[:i], response.Members[i+1:]...)
 		} else { response.Members = make([]string, 0) }
 		c.writeJSON(response)
-	}
-}
-
-// PingRoom : Delete inactice rooms and connections
-func (roomsManager *RoomsManager) pingRoom(room *Room) {
-	for {
-		numClients := len(room.Clients)
-		for i := 0; i < numClients; i++ {
-			c := room.Clients[i]
-			err := c.writeJSON(&Message{Desc: "ping", Code: room.Code.String()})
-			if !errhandler.HandleGenErr("Write ping to all room clients to check for disconnections", err) {
-				room.removeClient(c)
-				i--
-				numClients--
-				log.Println("**************************Removed inactive client")
-			}
-		}
-		if len(room.Clients) == 0 {
-			delete(roomsManager.Rooms, room.Code)
-			log.Println("**************************Removed inactive room")
-			return
-		}
 	}
 }
 

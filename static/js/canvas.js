@@ -691,6 +691,11 @@ function Canvas(toggleNotifications, notificationsBar, joinNotifIncoming, joinNo
     // Init socket
     //
 
+    let requestKeepAlive = function() {
+        let message = {desc: 'keep-alive'}
+        _socket.send(JSON.stringify(message));
+    }
+
     // Connect to socket
     // let _socket = new WebSocket('ws://localhost:8080/roomsmanager');
     let _socket = new WebSocket('wss://qolboard.herokuapp.com/roomsmanager');
@@ -702,6 +707,8 @@ function Canvas(toggleNotifications, notificationsBar, joinNotifIncoming, joinNo
         let state = _me.SaveStateJSON();
         let message = {desc: 'request-join-room', code: _code, canvas: state, member: _member.GetName()}
         _socket.send(JSON.stringify(message));
+
+        window.setInterval(requestKeepAlive, 5000 /*ms*/);
     }
 
     // Listen for socket close
