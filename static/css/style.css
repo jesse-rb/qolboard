@@ -8,7 +8,7 @@ body {
     --heading-color: #adcbf1;
     --border-color: #77768f;
     --button-background-color: #3c3c52;
-    --member-container-width: 250px;
+    --member-container-width: 300px;
     background-color: var(--background-color);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: var(--color);
@@ -46,11 +46,20 @@ em {
 }
 
 .control {
-    padding: 0.5em;
+    padding: 0 5px 0 5px;
 }
-.control > * {
+.control > label {
     display: block;
-    margin-top: 0.5em;
+}
+.control .input {
+    display: flex;
+    margin: 5px 0 0 0;
+}
+.control .input > * {
+    margin: 0 5px 0 0;
+}
+.control .input > *:last-child {
+    margin: 0;
 }
 .controls-group {
     align-items: baseline;
@@ -213,6 +222,7 @@ Side bar
     margin: 10px 10px 0 10px;
     word-break: break-all;
     flex-wrap: wrap;
+    border-radius: 5px;
 }
 
 .navbar > a {
@@ -229,7 +239,7 @@ Side bar
     display: flex;
     place-content: center;
     align-items: center;
-    padding: 10px;
+    padding: 0 5px 0 5px 0;
     background-color: var(--background-color);
     width: 80%;
     margin-top: 20px;
@@ -259,9 +269,18 @@ Side bar
         transform: translateX(0px);
     }
 }
+#notifications h3 {
+    margin: 10px 0 0 0;
+}
 .animation-new-notif {
     animation: new-notif 4s infinite;
 }
-.notif > * {
+.notif {
     margin: 10px;
+}
+.notif > * {
+    margin: 0 5px 0 0;
+}
+.notif > *:last-child {
+    margin: 0;
 }

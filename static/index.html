@@ -35,15 +35,21 @@
                 <h2>Members</h2>
                 <div class="control">
                     <label for="display-name">set display name</label>
-                    <input type="text" id="display-name">
-                    <button id="set-display-name" class="button material-icons">done</button>
+                    <div class="input">
+                        <input type="text" id="display-name">
+                        <button id="set-display-name" class="button material-icons">done</button>
+                    </div>
                 </div>
             </div>
 
             <!-- Notifications -->
             <div id="notifications" class="<!--hidden-->">
-                <h2>Notifications</h2>
-                <button id="toggle-notifications" class="button material-icons">notifications</button>
+                <div class="control">
+                    <div class="input">
+                        <h2>Notifications</h2>
+                        <button id="toggle-notifications" class="button material-icons">notifications</button>
+                    </div>
+                </div>
                 <h3>incoming requests</h3>
                 <div id="join-requests-incoming"></div>
                 <h3>outgoing requests</h3>
@@ -60,12 +66,16 @@
                     <!--room code-->
                     <div class="control">
                         <label for="room_code">your room code</label>
-                        <span id="room_code"></span>
+                        <div class="input">
+                            <span id="room_code"></span>
+                        </div>
                     </div>
                     <div class="control">
                         <label for="room_code_join">join a differnt room code</label>
-                        <input type="text" id="room_code_join">
-                        <button id="join_room" class="button material-icons">search</button>
+                        <div class="input">
+                            <input type="text" id="room_code_join">
+                            <button id="join_room" class="button material-icons">search</button>
+                        </div>
                     </div>
                 </fieldset>
                 <fieldset class="controls-group">
@@ -73,26 +83,36 @@
                     <!--Mini map-->
                     <div class="control">
                         <label for="mini_map">min map</label>
-                        <canvas id="mini_map" class="canvas" width="100px" height="100px"></canvas>
+                        <div class="input">
+                            <canvas id="mini_map" class="canvas" width="100px" height="100px"></canvas>
+                        </div>
                     </div>
                     <!--Canvas width-->
                     <div class="control">
                         <label for="canvas_width">canvas width</label>
-                        <input id="canvas_width" type="range" min="1" max="9000" value="500"></input>
+                        <div class="input">
+                            <input id="canvas_width" type="range" min="1" max="9000" value="500"></input>
+                        </div>
                     </div>
                     <!--Canvas height-->
                     <div class="control">
                         <label for="canvas_height">canvas height</label>
-                        <input id="canvas_height" type="range" min="1" max="9000" value="350"></input>
+                        <div class="input">
+                            <input id="canvas_height" type="range" min="1" max="9000" value="350"></input>
+                        </div>
                     </div>
                     <!--Canvas background color-->
                     <div class="control">
                         <label for="background_color">background color</label>
-                        <input id="background_color" type="color" value="#101010"></input>
+                        <div class="input">
+                            <input id="background_color" type="color" value="#101010"></input>
+                        </div>
                     </div>
                     <div class="control">
                         <label for="delete_all">delete all pieces</label>
-                        <button id="delete_all" onclick="deleteAll()" class="button material-icons">clear</button>
+                        <div class="input">
+                            <button id="delete_all" onclick="deleteAll()" class="button material-icons">clear</button>
+                        </div>
                     </div>
                 </fieldset>
                 <fieldset class="controls-group">
@@ -100,12 +120,16 @@
                     <!--Stroke color-->
                     <div class="control">
                         <label for="stroke_color">stroke color</label>
-                        <input id="stroke_color" type="color" value="#ee5555"></input>
+                        <div class="input">
+                            <input id="stroke_color" type="color" value="#ee5555"></input>
+                        </div>
                     </div>
                     <!--Stroke size-->
                     <div class="control">
                         <label for="stroke_size">stroke size</label>
-                        <input id="stroke_size" type="range" min="1" max="100" value="20"></input>
+                        <div class="input">
+                            <input id="stroke_size" type="range" min="1" max="100" value="20"></input>
+                        </div>
                     </div>
                 </fieldset>
                 <fieldset class="controls-group">
@@ -113,17 +137,23 @@
                     <!--Draw tool-->
                     <div class="control">
                         <label for="draw-tool">draw tool</label>
-                        <button id="draw-tool" class="button material-icons">gesture</button>
+                        <div class="input">
+                            <button id="draw-tool" class="button material-icons">gesture</button>
+                        </div>
                     </div>
                     <!--Select tool-->
                     <div class="control">
                         <label for="select-tool">select tool</label>
-                        <button id="select-tool" class="button material-icons">mouse</button>
+                        <div class="input">
+                            <button id="select-tool" class="button material-icons">mouse</button>
+                        </div>
                     </div>
                     <!--Delete tool-->
                     <div class="control">
                         <label for="delete-tool">delete tool</label>
-                        <button id="delete-tool" class="button material-icons">delete</button>
+                        <div class="input">
+                            <button id="delete-tool" class="button material-icons">delete</button>
+                        </div>
                     </div>
                 </fieldset>
                 <fieldset class="controls-group">
@@ -131,17 +161,23 @@
                     <!--Stroke shadow color-->
                     <div class="control">
                         <label for="shadow_color">shadow color</label>
-                        <input id="shadow_color" type="color" value="#9153EE"></input>
+                        <div class="input">
+                            <input id="shadow_color" type="color" value="#9153EE"></input>
+                        </div>
                     </div>
                     <!--Stroke shadow blur-->
                     <div class="control">
                         <label for="shadow_blur">shadow blur</label>
-                        <input id="shadow_blur" type="range" min="0" max="100" value="0"></input>
+                        <div class="input">
+                            <input id="shadow_blur" type="range" min="0" max="100" value="0"></input>
+                        </div>
                     </div>
                     <!--Clean up experimental pixels-->
                     <div class="control">
                         <label for="refresh_chaos">Clean up buggy pixels</label>
-                        <button id="refresh_chaos" onclick="refreshCanvas()" class="button material-icons">restore_page</button>
+                        <div class="input">
+                            <button id="refresh_chaos" onclick="refreshCanvas()" class="button material-icons">restore_page</button>
+                        </div>
                     </div>
                 </fieldset>
                 <fieldset class="controls-group">
@@ -149,7 +185,9 @@
                     <!--Not implemented features-->
                     <div class="control">
                         <label for="canvas_zoom"><strike>canvas zoom</strike></label>
-                        <input id="canvas_zoom" type="range" min="0.1" max="2" step="0.1" value="1"></input>
+                        <div class="input">
+                            <input id="canvas_zoom" type="range" min="0.1" max="2" step="0.1" value="1"></input>
+                        </div>
                     </div>
                 </fieldset>
             </div>
