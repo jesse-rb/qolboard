@@ -708,7 +708,7 @@ function Canvas(toggleNotifications, notificationsBar, joinNotifIncoming, joinNo
         let message = {desc: 'request-join-room', code: _code, canvas: state, member: _member.GetName()}
         _socket.send(JSON.stringify(message));
 
-        window.setInterval(requestKeepAlive, 55000 /*ms*/);
+        window.setInterval(requestKeepAlive, 30000 /*ms*/);
     }
 
     // Listen for socket close
