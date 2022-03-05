@@ -56,8 +56,16 @@ func main() {
 	go func() {
 		l.Println("Starting server on port " + port)
 
-		err := s.ListenAndServe()
-		// err := http.ListenAndServe(":" + port, redirectToHTTPS(sm))
+		// Get env
+		env := os.Getenv("ENV")
+		var err error
+		if env == "development" {
+			err = http.ListenAndServe(":" + port, redirectToHTTPS(sm))
+		} else {
+			certFilePath := os.Getenv("CERT_FILE_PATH")
+			keyFilePath := os.Getenv("KEY_FILE_PATH")
+			err = s.ListenAndServeTLS(certFilePath, keyFilePath)
+		}
 
 		if err != nil {
 			l.Fatal(err)
