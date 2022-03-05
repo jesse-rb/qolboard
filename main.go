@@ -1,13 +1,13 @@
 package main
 
 import (
+	"context"
 	"log"
 	"net/http"
 	"os"
-	"time"
 	"os/signal"
-	"context"
 	"qolboard/handlers"
+	"time"
 )
 
 func redirectToHTTPS(handler http.Handler) http.Handler {
@@ -45,8 +45,8 @@ func main() {
 
 	// Create new server
 	s := &http.Server{
-		Addr:         ":" + port,
-		Handler:      redirectToHTTPS(sm),
+		Addr:         "0.0.0.0:" + port,
+		Handler:      sm,//redirectToHTTPS(sm),
 		IdleTimeout:  120 * time.Second,
 		ReadTimeout:  1 * time.Second,
 		WriteTimeout: 1 * time.Second,
