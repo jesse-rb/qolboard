@@ -1,1 +1,1 @@
-go build -o ~/qolboard/server ~/qolboard/main.go
+go build -o /app/server /app/main.go

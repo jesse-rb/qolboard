@@ -1,2 +1,2 @@
-rm -rf ~/qolboard
-mkdir ~/qolboard
+rm -rf /app
+mkdir /app

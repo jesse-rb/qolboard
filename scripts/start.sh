@@ -1,1 +1,1 @@
-~/qolboard/server
+/app/server
