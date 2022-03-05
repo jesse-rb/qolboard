@@ -3,8 +3,8 @@ version: 0.0
 os: linux
 
 files:
-    - source: /main.go
-      destination: /app/
+    - source: \
+      destination: ~/qolboard
       
 hooks:
   BeforeInstall:

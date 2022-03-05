@@ -1,0 +1,1 @@
+go build -o ~/qolboard/server ~/qolboard/main.go
