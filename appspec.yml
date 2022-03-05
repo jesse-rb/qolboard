@@ -8,14 +8,14 @@ files:
       
 hooks:
   BeforeInstall:
-    - location: scripts/clean.sh
+    - location: ~/scripts/clean.sh
       timeout: 180
       runas: root
   AfterInstall:
-    - location: scripts/build.sh
+    - location: ~/scripts/build.sh
       timeout: 180
       runas: root
   ApplicationStart:
-    - location: scripts/start.sh
+    - location: ~/scripts/start.sh
       timeout: 180
       runas: root
