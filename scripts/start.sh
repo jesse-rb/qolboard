@@ -1,1 +1,2 @@
-/app/server > /dev/null 2> /dev/null < /dev/null &
+cd /app
+./server > /dev/null 2> /dev/null < /dev/null &
