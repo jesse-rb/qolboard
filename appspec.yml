@@ -12,7 +12,7 @@ os: linux
 hooks:
 hooks:
   BeforeInstall:
-    - location: scripts/cleanup.sh
+    - location: scripts/clean.sh
       timeout: 180
       runas: root
   AfterInstall:
