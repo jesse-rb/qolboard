@@ -1,2 +1,3 @@
+export PORT="80"
 cd /app
-./server > /dev/null 2> /dev/null < /dev/null &
+nohup ./server > /dev/null 2> /dev/null < /dev/null &

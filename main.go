@@ -40,7 +40,7 @@ func main() {
 	// Grab standard port
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "80" // Default port if not specified
+		port = "8080" // Default port if not specified
 	}
 
 	// Create new server
