@@ -1,9 +1,11 @@
 version: 0.0
 
-os: linux 
-  - source: /main.go
-    destination: /app/
+os: linux
 
+files:
+    - source: /main.go
+      destination: /app/
+      
 hooks:
   BeforeInstall:
     - location: scripts/clean.sh
