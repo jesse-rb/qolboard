@@ -46,7 +46,7 @@ func main() {
 	// Create new server
 	s := &http.Server{
 		Addr:         "0.0.0.0:" + port,
-		Handler:      sm,//redirectToHTTPS(sm),
+		Handler:      sm,
 		IdleTimeout:  120 * time.Second,
 		ReadTimeout:  1 * time.Second,
 		WriteTimeout: 1 * time.Second,
@@ -60,7 +60,7 @@ func main() {
 		env := os.Getenv("ENV")
 		var err error
 		if env == "development" {
-			err = http.ListenAndServe(":" + port, redirectToHTTPS(sm))
+			err = s.ListenAndServe()
 		} else {
 			certFilePath := os.Getenv("CERT_FILE_PATH")
 			keyFilePath := os.Getenv("KEY_FILE_PATH")
