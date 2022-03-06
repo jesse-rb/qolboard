@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"crypto/tls"
 	"log"
 	"net/http"
 	"os"
@@ -11,7 +10,6 @@ import (
 	"time"
 
 	"github.com/joho/godotenv"
-	"golang.org/x/crypto/acme/autocert"
 )
 
 func redirectToHTTPS(handler http.Handler) http.Handler {
@@ -55,13 +53,6 @@ func main() {
 		port = "8080" // Default port if not specified
 	}
 
-	// Certificate manager
-	certificateManager := autocert.Manager{
-        Prompt:     autocert.AcceptTOS,
-        HostPolicy: autocert.HostWhitelist("qolboard.com"),
-        Cache:      autocert.DirCache(os.Getenv("CERTS_DIR")),
-    }
-
 	// Create new server
 	s := &http.Server{
 		Addr:         ":" + port,
@@ -69,9 +60,6 @@ func main() {
 		IdleTimeout:  120 * time.Second,
 		ReadTimeout:  1 * time.Second,
 		WriteTimeout: 1 * time.Second,
-		TLSConfig: &tls.Config {
-            GetCertificate: certificateManager.GetCertificate,
-        },
 	}
 
 	// Start server
@@ -86,8 +74,7 @@ func main() {
 		if env == "development" {
 			err = s.ListenAndServe()
 		} else {
-			go http.ListenAndServe(":http", certificateManager.HTTPHandler(nil))
-			log.Fatal(s.ListenAndServeTLS("", ""))
+			err = s.ListenAndServeTLS(os.Getenv("CERT_CHAIN"), os.Getenv("CERT_KEY"))
 		}
 
 		if err != nil {
