@@ -14,7 +14,7 @@ import (
 
 func redirectToHTTPS(handler http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if os.Getenv("APP_ENV") == "production" { // If in production environment
+		if os.Getenv("ENV") == "production" { // If in production environment
 			if r.Header.Get("x-forwarded-proto") != "https" { // If this was not a https request
 				urlHTTPS := "https://" + r.Host + r.RequestURI // Reconstruct https url and redirect client
 				http.Redirect(w, r, urlHTTPS, http.StatusPermanentRedirect)
@@ -71,10 +71,10 @@ func main() {
 
 		// Start server
 		var err error
-		if env == "development" {
-			err = s.ListenAndServe()
-		} else {
+		if env == "production" {
 			err = s.ListenAndServeTLS(os.Getenv("CERT_CHAIN"), os.Getenv("CERT_KEY"))
+		} else {
+			err = s.ListenAndServe()
 		}
 
 		if err != nil {
