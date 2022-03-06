@@ -2,12 +2,16 @@ package main
 
 import (
 	"context"
+	"crypto/tls"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
 	"qolboard/handlers"
 	"time"
+
+	"github.com/joho/godotenv"
+	"golang.org/x/crypto/acme/autocert"
 )
 
 func redirectToHTTPS(handler http.Handler) http.Handler {
@@ -22,6 +26,14 @@ func redirectToHTTPS(handler http.Handler) http.Handler {
 		// Serve default handler
 		handler.ServeHTTP(w, r)
 	})
+}
+
+func init() {
+	// Load env file with godotenv
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
 }
 
 func main() {
@@ -43,30 +55,39 @@ func main() {
 		port = "8080" // Default port if not specified
 	}
 
+	// Certificate manager
+	certificateManager := autocert.Manager{
+        Prompt:     autocert.AcceptTOS,
+        HostPolicy: autocert.HostWhitelist("qolboard.com"),
+        Cache:      autocert.DirCache("certs"),
+    }
+
 	// Create new server
 	s := &http.Server{
-		Addr:         "0.0.0.0:" + port,
+		Addr:         ":" + port,
 		Handler:      sm,
 		IdleTimeout:  120 * time.Second,
 		ReadTimeout:  1 * time.Second,
 		WriteTimeout: 1 * time.Second,
+		TLSConfig: &tls.Config {
+            GetCertificate: certificateManager.GetCertificate,
+        },
 	}
 
 	// Start server
 	go func() {
 		l.Println("Starting server on port " + port)
 
-		// Get env
-		// env := os.Getenv("ENV")
-		// var err error
-		// if env == "development" {
-		// 	err = s.ListenAndServe()
-		// } else {
-		// 	certFilePath := os.Getenv("CERT_FILE_PATH")
-		// 	keyFilePath := os.Getenv("KEY_FILE_PATH")
-		// 	err = s.ListenAndServeTLS(certFilePath, keyFilePath)
-		// }
-		err := s.ListenAndServe()
+		// Get environment
+		env := os.Getenv("ENV")
+
+		// Start server
+		var err error
+		if env == "development" {
+			err = s.ListenAndServe()
+		} else {
+			err = s.ListenAndServeTLS("", "")
+		}
 
 		if err != nil {
 			l.Fatal(err)
