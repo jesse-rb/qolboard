@@ -16,7 +16,7 @@ func redirectToHTTPS(handler http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if os.Getenv("ENV") == "production" { // If in production environment
 			if r.TLS == nil { // If this was not a TLS request
-				urlHTTPS := "https://" + r.Host + r.RequestURI + ":" + os.Getenv("PORT") // Reconstruct https url and redirect client
+				urlHTTPS := "https://" + r.Host + r.RequestURI // Reconstruct https url and redirect client
 				http.Redirect(w, r, urlHTTPS, http.StatusPermanentRedirect)
 				return // Don't serve default handler
 			}
