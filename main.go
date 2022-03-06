@@ -57,15 +57,16 @@ func main() {
 		l.Println("Starting server on port " + port)
 
 		// Get env
-		env := os.Getenv("ENV")
-		var err error
-		if env == "development" {
-			err = s.ListenAndServe()
-		} else {
-			certFilePath := os.Getenv("CERT_FILE_PATH")
-			keyFilePath := os.Getenv("KEY_FILE_PATH")
-			err = s.ListenAndServeTLS(certFilePath, keyFilePath)
-		}
+		// env := os.Getenv("ENV")
+		// var err error
+		// if env == "development" {
+		// 	err = s.ListenAndServe()
+		// } else {
+		// 	certFilePath := os.Getenv("CERT_FILE_PATH")
+		// 	keyFilePath := os.Getenv("KEY_FILE_PATH")
+		// 	err = s.ListenAndServeTLS(certFilePath, keyFilePath)
+		// }
+		err := s.ListenAndServe()
 
 		if err != nil {
 			l.Fatal(err)
