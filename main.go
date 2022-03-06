@@ -86,7 +86,8 @@ func main() {
 		if env == "development" {
 			err = s.ListenAndServe()
 		} else {
-			err = s.ListenAndServeTLS("", "")
+			go http.ListenAndServe(":http", certificateManager.HTTPHandler(nil))
+			log.Fatal(s.ListenAndServeTLS("", ""))
 		}
 
 		if err != nil {
