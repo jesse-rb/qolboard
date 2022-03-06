@@ -56,7 +56,7 @@ func main() {
 	// Create new server
 	s := &http.Server{
 		Addr:         ":" + port,
-		Handler:      sm,
+		Handler:      redirectToHTTPS(sm),
 		IdleTimeout:  120 * time.Second,
 		ReadTimeout:  1 * time.Second,
 		WriteTimeout: 1 * time.Second,
