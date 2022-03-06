@@ -72,7 +72,7 @@ func main() {
 		// Start server
 		var err error
 		if env == "production" {
-			go http.ListenAndServe(":"+port, redirectToHTTPS(sm))
+			go http.ListenAndServe(":80", redirectToHTTPS(sm))
 			err = s.ListenAndServeTLS(os.Getenv("CERT_CHAIN"), os.Getenv("CERT_KEY"))
 		} else {
 			err = s.ListenAndServe()
