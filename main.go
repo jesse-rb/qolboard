@@ -59,7 +59,7 @@ func main() {
 	certificateManager := autocert.Manager{
         Prompt:     autocert.AcceptTOS,
         HostPolicy: autocert.HostWhitelist("qolboard.com"),
-        Cache:      autocert.DirCache("certs"),
+        Cache:      autocert.DirCache(os.Getenv("CERTS_DIR")),
     }
 
 	// Create new server
