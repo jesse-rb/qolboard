@@ -1,19 +1,21 @@
 package main
 
 import (
+	"context"
 	"log"
 	"net/http"
 	"os"
-	"time"
 	"os/signal"
-	"context"
 	"qolboard/handlers"
+	"time"
+
+	"github.com/joho/godotenv"
 )
 
 func redirectToHTTPS(handler http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if os.Getenv("APP_ENV") == "production" { // If in production environment
-			if r.Header.Get("x-forwarded-proto") != "https" { // If this was not a https request
+		if os.Getenv("ENV") == "production" { // If in production environment
+			if r.TLS == nil { // If this was not a TLS request
 				urlHTTPS := "https://" + r.Host + r.RequestURI // Reconstruct https url and redirect client
 				http.Redirect(w, r, urlHTTPS, http.StatusPermanentRedirect)
 				return // Don't serve default handler
@@ -22,6 +24,14 @@ func redirectToHTTPS(handler http.Handler) http.Handler {
 		// Serve default handler
 		handler.ServeHTTP(w, r)
 	})
+}
+
+func init() {
+	// Load env file with godotenv
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
 }
 
 func main() {
@@ -56,8 +66,17 @@ func main() {
 	go func() {
 		l.Println("Starting server on port " + port)
 
-		err := s.ListenAndServe()
-		// err := http.ListenAndServe(":" + port, redirectToHTTPS(sm))
+		// Get environment
+		env := os.Getenv("ENV")
+
+		// Start server
+		var err error
+		if env == "production" {
+			go http.ListenAndServe(":80", redirectToHTTPS(sm))
+			err = s.ListenAndServeTLS(os.Getenv("CERT_CHAIN"), os.Getenv("CERT_KEY"))
+		} else {
+			err = s.ListenAndServe()
+		}
 
 		if err != nil {
 			l.Fatal(err)
