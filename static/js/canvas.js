@@ -698,7 +698,7 @@ function Canvas(toggleNotifications, notificationsBar, joinNotifIncoming, joinNo
 
     // Connect to socket
     // let _socket = new WebSocket('ws://localhost:8080/roomsmanager');
-    let _socket = new WebSocket('wss://qolboard.herokuapp.com/roomsmanager');
+    let _socket = new WebSocket('wss://qolboard.com/roomsmanager');
     console.log('Attempting to connect to socket');
 
     // Listen for socket open
