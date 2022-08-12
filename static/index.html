@@ -22,7 +22,8 @@
             <p>Therefore <em>please do not use qolboard for any personal or private details</em>.</p>
         </div>
 
-        <div class="sidebar">
+        <div id="sidebar" class="sidebar">
+            <button id="expand-side" class="button large material-icons" onclick="toggleSide()">chevron_right</button>
             <!-- Navbar -->
             <div class="navbar">
                 <h2>Navigation</h2>
@@ -202,6 +203,7 @@
     </div>
 
     <!--JavaScript scripts-->
+    <script type="text/javascript" src="./js/util.js"></script>
     <script type="text/javascript" src="./js/async.js"></script>
     <script type="text/javascript" src="./js/member.js"></script>
     <script type="text/javascript" src="./js/piece.js"></script>
@@ -252,7 +254,6 @@
         function deleteAll() {
             c.RemoveAllPieces();
         }
-
     </script>
 </body>
 </html>

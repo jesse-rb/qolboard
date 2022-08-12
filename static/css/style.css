@@ -177,6 +177,10 @@ input[type=text] {
     outline: none;
 }
 
+.button.large {
+    font-size: 48px;
+}
+
 a {
     color: var(--color);
 }
@@ -211,6 +215,8 @@ Side bar
     width: var(--member-container-width);
     background-color: var(--background-color-2);
     overflow-y: auto;
+    transition: transform 0.5s;
+    overflow: visible;
 }
 .sidebar > div {
     display: flex;
@@ -223,6 +229,25 @@ Side bar
     word-break: break-all;
     flex-wrap: wrap;
     border-radius: 5px;
+}
+
+#expand-side {
+    margin: 5px;
+    position: absolute;
+    transition: transform 0.2s; /*Transition duration consistent with .button class transitions*/
+    left: -68px;
+}
+.sidebar.closed {
+    transform: translateX(300px);
+}
+.sidebar.closed #expand-side {
+    transform: rotateZ(-180deg);
+}
+.sidebar.closed #expand-side:hover { /*Special case to keep .button class :hover consistency*/
+    transform: rotateZ(-180deg) scale(1.1);
+}
+.sidebar.closed #expand-side:active { /*Special case to keep .button class :active consistency*/
+    transform: scale(0.9);
 }
 
 .navbar > a {
