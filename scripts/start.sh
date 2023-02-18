@@ -1,2 +1,3 @@
 cd /app
-nohup ./server > /dev/null 2> /dev/null < /dev/null &
+nohup ./server &> /dev/null &
+echo $! > /app/.apppid
